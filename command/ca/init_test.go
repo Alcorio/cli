@@ -6,7 +6,12 @@ import (
 
 	_ "go.step.sm/crypto/kms/azurekms"
 )
-
+/*
+name: 测试名称（描述测试情况）
+dnsValue: 输入值
+want: 期望的解析结果
+wantErr: 是否应该返回错误
+*/
 func Test_processDNSValue(t *testing.T) {
 	tests := []struct {
 		name     string

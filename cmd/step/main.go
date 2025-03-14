@@ -70,7 +70,7 @@ func main() {
 	// create new instance of app
 	app := newApp(os.Stdout, os.Stderr)
 
-	if err := app.Run(os.Args); err != nil {
+	if err := app.Run(os.Args); err != nil { // 入口
 		var messenger interface {
 			Message() string
 		}
@@ -180,9 +180,9 @@ func flagValue(f cli.Flag) reflect.Value {
 
 var placeholderString = regexp.MustCompile(`<.*?>`)
 
-func stringifyFlag(f cli.Flag) string {
+func stringifyFlag(f cli.Flag) string { // 将命令行标志转化为字符串
 	fv := flagValue(f)
-	usg := fv.FieldByName("Usage").String()
+	usg := fv.FieldByName("Usage").String() // 反射获取flag的描述字段
 	placeholder := placeholderString.FindString(usg)
 	if placeholder == "" {
 		switch f.(type) {
@@ -191,5 +191,6 @@ func stringifyFlag(f cli.Flag) string {
 			placeholder = "<value>"
 		}
 	}
-	return cli.FlagNamePrefixer(fv.FieldByName("Name").String(), placeholder) + "\t" + usg
+	return cli.FlagNamePrefixer(fv.FieldByName("Name").String(), placeholder) + "\t" + usg // 返回"--config=<value>    path to the config file"
+
 }
